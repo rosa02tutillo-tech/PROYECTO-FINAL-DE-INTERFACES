@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego de Colores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="btn-mute" class="boton-mute">
+    <span id="icono-mute">🔊</span>
+</div>
+
+    <audio id="musica-fondo" loop>
+    <source src="Cancion para el juego.mp3" type="audio/mpeg">
+</audio>
+
+    <div id="pantalla-portada" class="contenedor-pantalla portada">
+        <div id="btn-ir-mapa" class="zona-click flecha-portada"></div>
+    </div>
+
+    <div id="pantalla-mapa" class="contenedor-pantalla mapa" style="display: none;">
+        <div id="btn-ir-nivel1" class="zona-click flecha-mapa"></div>
+    </div>
+
+    <div id="pantalla-nivel1" class="contenedor-pantalla nivel1-nueva" style="display: none;">
+    
+    <h2 class="instruccion-texto">Encuentra los círculos rojos</h2>
+
+    <div class="contenedor-objetos">
+        <div class="circulo-item rojo" onclick="marcarCorrecto(this)">
+            <img src="https://img.icons8.com/color/96/fish.png" alt="pez">
+        </div>
+        <div class="circulo-item amarillo" onclick="marcarError(this)">
+            <img src="https://img.icons8.com/color/96/warning-shield.png" alt="error">
+        </div>
+        <div class="circulo-item rojo" onclick="marcarCorrecto(this)">
+            <img src="https://img.icons8.com/color/96/fish.png" alt="pez">
+        </div>
+    </div>
+    
+    <div id="btn-enviar" class="flecha-siguiente" onclick="validarVictoria()">
+        <span>➜</span>
+    </div>
+
+    <div id="feedback-error" class="feedback-x">✖</div>
+    <div id="confeti-container"></div>
+</div>
+
+<div id="pantalla-nivel2" class="contenedor-pantalla nivel2" style="display: none;">
+    <h2 class="instruccion-texto">¡Ahora busca los cuadrados amarillos!</h2>
+
+    <div class="contenedor-objetos">
+        <div class="cuadrado-item" onclick="marcarCorrectoNivel2(this)">
+            <span style="font-size: 80px;">⚠️</span>
+        </div>
+        <div class="circulo-item rojo" onclick="marcarError(this)">
+            <img src="https://img.icons8.com/color/96/fish.png" alt="error">
+        </div>
+        <div class="cuadrado-item" onclick="marcarCorrectoNivel2(this)">
+            <span style="font-size: 80px;">⚠️</span>
+        </div>
+    </div>
+
+    <div id="btn-finalizar" class="flecha-siguiente" onclick="ganarJuego()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-nivel3" class="contenedor-pantalla nivel3" style="display: none;">
+    <h2 class="instruccion-texto">¡Excelente! Ahora busca los triángulos verdes</h2>
+
+    <div class="contenedor-objetos">
+        <div class="triangulo-item" onclick="marcarCorrectoNivel3(this)">
+            <div class="forma-triangulo"></div>
+        </div>
+        <div class="triangulo-item" onclick="marcarCorrectoNivel3(this)">
+            <div class="forma-triangulo"></div>
+        </div>
+        <div class="cuadrado-item" onclick="marcarError(this)">
+             <span style="font-size: 80px;">⚠️</span>
+        </div>
+    </div>
+
+    <div id="btn-final-juego" class="flecha-siguiente" onclick="finalizarAventura()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-mapa2" class="contenedor-pantalla mapa2" style="display: none;">
+    <div id="btn-ir-nivel4" class="zona-click flecha-mapa2" onclick="irAlNivel4()"></div>
+</div>
+
+<div id="pantalla-nivel4" class="contenedor-pantalla nivel4" style="display: none;">
+    <h2 class="instruccion-texto">¡Une las formas y forma el tren!</h2>
+
+    <div id="estacion-tren" class="zona-armado">
+        <div class="hueco" id="hueco-1"></div>
+        <div class="hueco" id="hueco-2"></div>
+        <div class="hueco" id="hueco-3"></div>
+    </div>
+
+    <div class="piezas-sueltas">
+        <div class="vagon azul" onclick="unirPieza(this, 1)"><span>1</span></div>
+        <div class="vagon rojo" onclick="unirPieza(this, 2)"><span>2</span></div>
+        <div class="vagon verde" onclick="unirPieza(this, 3)"><span>3</span></div>
+    </div>
+
+    <div id="btn-final-total" class="flecha-siguiente" style="display:none;" onclick="irAlNivel5()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-nivel5" class="contenedor-pantalla nivel5" style="display: none;">
+    <h2 class="instruccion-texto">¡Forma el tren de estrellas mágicas!</h2>
+
+    <div id="estacion-estrellas" class="zona-armado">
+        <div class="hueco" id="hueco-estrella-1"></div>
+        <div class="hueco" id="hueco-estrella-2"></div>
+        <div class="hueco" id="hueco-estrella-3"></div>
+    </div>
+
+    <div class="piezas-sueltas">
+        <div class="estrella-pieza" onclick="unirEstrella(this, 1)">⭐<span>1</span></div>
+        <div class="estrella-pieza" onclick="unirEstrella(this, 2)">⭐<span>2</span></div>
+        <div class="estrella-pieza" onclick="unirEstrella(this, 3)">⭐<span>3</span></div>
+    </div>
+
+    <div id="btn-victoria-final" class="flecha-siguiente" style="display:none;" onclick="victoriaTotal()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-mapa3" class="contenedor-pantalla mapa3" style="display: none;">
+    <div id="btn-ir-nivel3-final" class="zona-click flecha-mapa3" onclick="empezarNivel3()"></div>
+</div>
+
+<div id="pantalla-nivel6" class="contenedor-pantalla nivel6" style="display: none;">
+    <h2 class="instruccion-texto">¡Encuentra las 4 estrellas amarillas escondidas!</h2>
+
+    <div class="estrella-escondida" id="estrella-1" onclick="encontrarEstrella(this)">⭐</div>
+    <div class="estrella-escondida" id="estrella-2" onclick="encontrarEstrella(this)">⭐</div>
+    <div class="estrella-escondida" id="estrella-3" onclick="encontrarEstrella(this)">⭐</div>
+    <div class="estrella-escondida" id="estrella-4" onclick="encontrarEstrella(this)">⭐</div>
+
+    <div id="btn-pasar-nivel6" class="flecha-siguiente" style="display:none;" onclick="finalizarNivel6()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-nivel7" class="contenedor-pantalla nivel7" style="display: none;">
+    <h2 class="instruccion-texto">¡Busca los 4 rombos rojos escondidos!</h2>
+
+    <div class="rombo-escondido" id="rombo-1" onclick="encontrarRombo(this)"></div>
+    <div class="rombo-escondido" id="rombo-2" onclick="encontrarRombo(this)"></div>
+    <div class="rombo-escondido" id="rombo-3" onclick="encontrarRombo(this)"></div>
+    <div class="rombo-escondido" id="rombo-4" onclick="encontrarRombo(this)"></div>
+
+    <div id="btn-pasar-nivel7" class="flecha-siguiente" style="display:none;" onclick="finalizarNivel7()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-mapa4" class="contenedor-pantalla mapa4" style="display: none;">
+    <div id="btn-ir-nivel8" class="zona-click flecha-mapa4" onclick="empezarNivel8()"></div>
+</div>
+
+<div id="pantalla-nivel8" class="contenedor-pantalla nivel8" style="display: none;">
+    <h2 class="instruccion-texto">¿Dónde están los caballitos de mar? ¡Toca el cuadrado!</h2>
+
+    <div class="contenedor-opciones">
+        <div class="opcion-figura circulo" onclick="seleccionarOpcion8(this, false)">
+            <span class="emoji-interior">🐎</span> </div>
+
+        <div class="opcion-figura cuadrado" onclick="seleccionarOpcion8(this, true)">
+            <span class="emoji-interior">🐎</span>
+        </div>
+    </div>
+
+    <div id="btn-pasar-nivel8" class="flecha-siguiente" style="display:none;" onclick="finalizarNivel8()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-nivel9" class="contenedor-pantalla nivel9" style="display: none;">
+    <div class="interfaz-juego">
+        <h2 class="instruccion-texto-centrada">¿Dónde está la ballena? ¡Toca el círculo!</h2>
+
+        <div class="zona-opciones-centrada">
+            <div class="opcion-figura estrella-shape" onclick="seleccionarOpcion9(this, false)">
+                <span class="emoji-interior">🐋</span>
+            </div>
+
+            <div class="opcion-figura circulo-v2" onclick="seleccionarOpcion9(this, true)">
+                <span class="emoji-interior">🐋</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="btn-pasar-nivel9" class="flecha-siguiente-posicionada" style="display:none;" onclick="finalizarNivel9()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-mapa5" class="contenedor-pantalla mapa5" style="display: none;">
+    <div id="btn-ir-nivel10" class="flecha-mapa5" onclick="empezarNivel10()"></div>
+</div>
+
+
+<div id="pantalla-nivel10" class="contenedor-pantalla nivel10" style="display: none;">
+    <h2 class="instruccion-texto">¡Mira quiénes han venido a saludarte!</h2>
+
+    <div class="zona-animaciones">
+        <div class="animacion-item"><img src="Animacion-1.gif" alt="Ani 1"></div>
+        <div class="animacion-item"><img src="Animacion-2.gif" alt="Ani 2"></div>
+        <div class="animacion-item"><img src="Animacion-3.gif" alt="Ani 3"></div>
+        <div class="animacion-item"><img src="Animacion-4.gif" alt="Ani 4"></div>
+    </div>
+
+    <div id="btn-pasar-nivel10" class="flecha-siguiente" style="display:none;" onclick="finalizarNivel10()">
+        <span>➜</span>
+    </div>
+</div>
+
+<div id="pantalla-nivel11" class="contenedor-pantalla nivel11" style="display: none;">
+    <div class="video-final-container">
+        <video id="video-final" width="100%" height="auto">
+            <source src="Video para el juego.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+    </div>
+
+    <div id="btn-reiniciar" class="boton-final" style="display:none;" onclick="reiniciarJuego()">
+        ¡LO LOGRASTE! JUGAR DE NUEVO
+    </div>
+</div>
+
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

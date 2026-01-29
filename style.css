@@ -1,0 +1,621 @@
+body, html {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+
+.contenedor-pantalla {
+    width: 100vw; height: 100vh;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.portada { background-image: url('fondo.png'); }
+.mapa { background-image: url('mapa.png'); }
+
+
+.zona-click {
+    position: absolute;
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0); /* Cambia a 0.3 para ver los botones */
+}
+
+.flecha-portada { width: 25%; height: 30%; bottom: 5%; left: 15%; }
+.flecha-mapa { width: 12%; height: 20%; top: 35%; left: 9%; }
+
+.circulo-rojo {
+    position: absolute;
+    width: 15%; height: 15%;
+    top: 40%; left: 45%;
+    border-radius: 50%;
+    cursor: pointer;
+    background: rgba(0, 255, 0, 0); /* Cambia a 0.3 para ubicarlo */
+}
+
+.btn-send-invisible {
+    position: absolute;
+    bottom: 5%; left: 40%;
+    width: 20%; height: 10%;
+    background: transparent; border: none; cursor: pointer;
+}
+/* Nueva imagen de fondo para el subnivel */
+.nivel1-nueva {
+    background-image: url('nivel1.1.png');
+}
+
+/* Estilo para el contenedor de los peces */
+.contenedor-objetos {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 20vh;
+}
+
+.circulo-item {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 5px solid white;
+    transition: transform 0.2s;
+}
+
+.circulo-item.rojo { background-color: #ff0000; }
+.circulo-item.amarillo { background-color: #ffcc00; }
+
+.circulo-item:hover { transform: scale(1.1); }
+
+/* La flecha naranja que faltaba */
+.flecha-siguiente {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 100px;
+    height: 80px;
+    background-color: #ff8000;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.instruccion-texto {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 50px;
+    text-shadow: 2px 2px 5px black;
+}
+
+/* Fondo para el Nivel 2 */
+.nivel2 {
+    background-image: url('nivel1.2.png');
+}
+
+/* Estilo para los cuadrados amarillos */
+.cuadrado-item {
+    width: 150px;
+    height: 150px;
+    background-color: #ffcc00; /* Amarillo vibrante */
+    border: 8px solid #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.cuadrado-item:hover {
+    transform: scale(1.1);
+}
+
+/* Efecto cuando ya lo tocaron */
+.cuadrado-item.marcado {
+    background-color: #00ff00 !important; /* Cambia a verde al acertar */
+    border-color: #fff;
+}
+
+
+.marcado {
+    pointer-events: none; /* Evita que se pueda marcar dos veces */
+    filter: brightness(1.2);
+    border: 8px solid white !important;
+}
+
+/* Fondo para el Nivel 3 */
+.nivel3 {
+    background-image: url('nivel1.3.png'); /* Asegúrate que este sea el nombre de tu imagen */
+}
+
+/* Dibujar el triángulo verde con CSS */
+.triangulo-item {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.forma-triangulo {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 110px solid #28a745; /* Verde brillante */
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+}
+
+.triangulo-item:hover {
+    transform: scale(1.1);
+}
+
+/* Cuando se marca como correcto */
+.triangulo-item.marcado .forma-triangulo {
+    border-bottom-color: #fff; /* Cambia a blanco al tocarlo */
+    filter: drop-shadow(0 0 15px #fff);
+}
+
+/* Nuevo fondo del Mapa Nivel 2 */
+.mapa2 { 
+    background-image: url('mapa_nivel2.png'); /* Guarda la imagen image_8a44bc.jpg con este nombre */
+}
+
+/* Busca y reemplaza tu clase .flecha-mapa2 por esta */
+.flecha-mapa2 { 
+    width: 80px;            /* Tamaño aproximado de la flecha naranja */
+    height: 60px; 
+    position: absolute;
+    top: 61%;               /* Ajustado para bajar la zona de click */
+    left: 20%;              /* Ajustado para moverla a la derecha */
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0); /* Pon 0 para que sea invisible, o 0.3 para probar la posición */
+    border-radius: 10px;
+    z-index: 10;            /* Asegura que esté por encima de todo */
+}
+
+/* Imagen de fondo para el Nivel 4 (Anguilas) */
+.nivel4 { 
+    background-image: url('nivel\ 2.1.png'); /* Asegúrate de que el archivo se llame así */
+    background-size: 100% 100%;
+}
+
+/* Ajuste de posición para que el tren no tape las anguilas */
+.zona-armado {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25vh; /* Bajamos el tren un poco */
+    height: 120px;
+}
+
+.piezas-sueltas {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15vh; /* Ajustamos las piezas de abajo */
+}
+
+
+.zona-armado {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15vh;
+    height: 120px;
+}
+
+.hueco {
+    width: 100px;
+    height: 80px;
+    border: 3px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.piezas-sueltas {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20vh;
+}
+
+.vagon {
+    width: 100px;
+    height: 80px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    font-size: 24px;
+    transition: 0.3s;
+}
+
+.vagon.azul { background: #3498db; border-bottom: 10px solid #2980b9; }
+.vagon.rojo { background: #e74c3c; border-bottom: 10px solid #c0392b; }
+.vagon.verde { background: #2ecc71; border-bottom: 10px solid #27ae60; }
+
+.vagon.encajado {
+    transform: scale(0.8);
+    cursor: default;
+}
+
+/* Imagen de fondo para el Nivel 5 (Anguilas) */
+.nivel5 { 
+    background-image: url('nivel\ 2.2.png'); /* Fondo de anguilas */
+    background-size: 100% 100%;
+}
+
+/* Estilo para las estrellas del tren */
+.estrella-pieza {
+    width: 100px;
+    height: 100px;
+    background: gold;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 15px yellow;
+    transition: 0.3s;
+}
+
+.estrella-pieza.encajado {
+    transform: scale(0.8);
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* Corregir posición de la flecha en el mapa */
+.flecha-mapa2 { 
+    width: 15%; 
+    height: 20%; 
+    bottom: 25%; 
+    left: 20%; 
+    background: rgba(255, 255, 255, 0.1); /* Área visible para pruebas, luego poner en 0 */
+    position: absolute;
+}
+
+/* Imagen de fondo para el Mapa del Nivel 3 */
+.mapa3 { 
+    background-image: url('mapa_nivel3.png'); /* Asegúrate de que el nombre coincida con tu imagen */
+    background-size: 100% 100%;
+}
+
+/* Posicionamiento de la zona de clic sobre la flecha naranja del mapa */
+.flecha-mapa3 { 
+    width: 12%; 
+    height: 15%; 
+    top: 35%; 
+    left: 44%; 
+    position: absolute;
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0); /* Cambia a 0.3 para ver el área y ajustarla si es necesario */
+}
+
+/* Fondo del Nivel 6 */
+.nivel6 {
+    background-image: url('nivel\ 3.1.png'); /* Tu imagen de corales y rocas */
+    background-size: 100% 100%;
+}
+
+/* Estilo para las estrellas ocultas */
+.estrella-escondida {
+    position: absolute;
+    font-size: 35px;
+    cursor: pointer;
+    filter: brightness(0.6) saturate(0.5); /* Las hace un poco oscuras para que se camuflen */
+    transition: all 0.3s;
+    user-select: none;
+}
+
+#estrella-1 { top: 55%; left: 21%; } /* Cerca de la roca izquierda */
+#estrella-2 { top: 48%; right: 32%; } /* Entre las algas centrales */
+#estrella-3 { top: 75%; left: 45%; } /* Abajo, cerca de la base de la roca central */
+#estrella-4 { top: 40%; right: 15%; } /* En la parte alta de los corales de la derecha */
+
+   
+/* Cuando el niño las encuentra */
+.estrella-encontrada {
+    filter: brightness(1.2) drop-shadow(0 0 10px gold) !important;
+    transform: scale(1.5) rotate(360deg);
+    pointer-events: none;
+}
+
+/* Fondo del Nivel 7 */
+.nivel7 {
+    background-image: url('nivel\ 3.2.png'); 
+    background-size: 100% 100%;
+}
+
+/* Estilo del rombo rojo */
+.rombo-escondido {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ff0000;
+    transform: rotate(45deg); /* Esto le da la forma de rombo */
+    cursor: pointer;
+    opacity: 0.4; /* Muy transparente para que esté bien escondido */
+    transition: all 0.3s;
+}
+
+/* Posiciones para los 4 rombos en el nuevo paisaje */
+#rombo-1 { top: 20%; left: 45%; }   /* Cerca de la roca colgante central */
+#rombo-2 { top: 15%; right: 25%; }  /* Cerca de la roca de la derecha con gusanos */
+#rombo-3 { top: 40%; left: 18%; }   /* Cerca de la planta verde pequeña a la izquierda */
+#rombo-4 { top: 35%; right: 40%; }  /* En el espacio azul central */
+
+/* Efecto cuando se encuentra */
+.rombo-encontrado {
+    opacity: 1 !important;
+    transform: rotate(405deg) scale(1.5); /* Gira y crece */
+    box-shadow: 0 0 15px #ff0000;
+    pointer-events: none;
+}
+
+/* Imagen de fondo para el Mapa del Nivel 4 */
+.mapa4 { 
+    background-image: url('mapa_nivel4.png'); /* Imagen del Bosque de Algas */
+    background-size: 100% 100%;
+}
+
+/* Posicionamiento de la zona de clic sobre la flecha naranja del nuevo mapa */
+.flecha-mapa4 { 
+    width: 10%; 
+    height: 12%; 
+    top: 62%; 
+    left: 55%; 
+    position: absolute;
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0); /* Cambia a 0.3 para ajustar la posición si es necesario */
+}
+
+@keyframes caer {
+    to { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* Fondo del Nivel 8 */
+.nivel8 {
+    background-image: url('nivel\ 4.1.png'); 
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-opciones {
+    display: flex;
+    gap: 200px;
+    margin-top: 20px;
+}
+
+.opcion-figura {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 5px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.circulo {
+    border-radius: 50%;
+}
+
+.cuadrado {
+    border-radius: 10px;
+}
+
+.emoji-interior {
+    font-size: 40px;
+}
+
+/* Efectos de feedback */
+.correcta {
+    background-color: #2ecc71 !important;
+    border-color: #27ae60 !important;
+    transform: scale(1.1);
+}
+
+.incorrecta {
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+    animation: vibrar 0.3s;
+}
+
+@keyframes vibrar {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Fondo del Nivel 9 */
+/* Contenedor principal del nivel */
+.nivel9 {
+    background-image: url('nivel\ 4.2.png');
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    text-align: center;
+}
+
+/* Bloque que contiene texto y figuras */
+.interfaz-juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilo del texto blanco y centrado */
+.instruccion-texto-centrada {
+    color: white;
+    font-size: 2.5rem;
+    font-family: Arial, sans-serif;
+    margin-bottom: 40px; /* Espacio entre texto y figuras */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Alineación de las figuras con las cuevas */
+.zona-opciones-centrada {
+    display: flex;
+    justify-content: center;
+    gap: 150px; /* AJUSTA ESTO: Más grande para separar las figuras hacia las cuevas */
+}
+
+/* La estrella: Recorta el fondo amarillo */
+.estrella-shape {
+    background-color: #f1c40f; /* Color amarillo */
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Este es el código mágico para la estrella */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    cursor: pointer;
+}
+
+/* El círculo: Redondea las esquinas */
+.circulo-v2 {
+    background-color: #2ecc71; /* Color verde */
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Esto lo hace círculo */
+    cursor: pointer;
+}
+
+/* Asegúrate de que la ballena quepa dentro */
+.emoji-interior {
+    font-size: 60px;
+    pointer-events: none; /* Para que el clic pase a la figura */
+}
+
+/* Posicionamiento de la flecha naranja (esquina inferior derecha) */
+.flecha-siguiente-posicionada {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ff7b00;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 6px #cc6200;
+}
+
+/* --- MAPA NIVEL 5 --- */
+.mapa5 { 
+    background-image: url('mapa_nivel5.png'); 
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    /* Eliminamos el !important para permitir que JS lo oculte */
+    display: none; 
+}
+
+.flecha-mapa5 { 
+    width: 12%; 
+    height: 15%; 
+    top: 35%; 
+    right: 15%; 
+    position: absolute;
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0.3); 
+    border-radius: 15px;
+    z-index: 10; /* Asegura que esté por encima del fondo */
+}
+
+/* --- NIVEL 10 --- */
+.nivel10 {
+    /* OJO: Verifica que el nombre sea 'nivel 5.1.png' con el espacio exacto */
+    background-image: url('nivel\ 5.1.png'); 
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    display: none; /* Se activará como 'flex' desde JS */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.zona-animaciones {
+    display: grid;
+    grid-template-columns: repeat(2, 200px); /* Definimos un tamaño fijo para las columnas */
+    gap: 40px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.animacion-item img {
+    width: 180px; 
+    height: auto;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Fondo del Nivel 11 */
+.nivel11 {
+    background-image: url('nivel\ 5.2.png'); /* Imagen de la batalla final */
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-final-container {
+    width: 70%; /* Tamaño del video en pantalla */
+    border: 10px solid #ffcc00;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+    overflow: hidden;
+    background: black;
+}
+
+.boton-final {
+    margin-top: 30px;
+    padding: 20px 40px;
+    background-color: #2ecc71;
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px #27ae60;
+}
